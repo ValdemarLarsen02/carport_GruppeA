@@ -1,6 +1,7 @@
 package app.config;
 
 import app.controllers.DatabaseController;
+import app.models.Carport;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

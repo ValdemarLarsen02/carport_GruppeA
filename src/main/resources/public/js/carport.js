@@ -121,7 +121,7 @@ function drawCarport() {
     addMeasurementLine(xStart, yStart, xStart + carportWidth, yStart, `${carportWidth} cm`);
     addMeasurementLine(xStart, yStart, xStart, yStart + carportLength, `${carportLength} cm`);
 
-    drawVerticalLines(xStart, yStart, carportLength, carportWidth, scaleFactor);
+    //drawVerticalLines(xStart, yStart, carportLength, carportWidth, scaleFactor);
 
     // Tegn skuret KUN hvis bredde og længde er valgt
     if (!isNaN(shedWidth) && !isNaN(shedLength)) {
@@ -146,6 +146,9 @@ function drawCarport() {
         addPoles(shedX + shedWidth, shedY + shedLength); // Nederste højre
     }
 }
+
+
+
 
 // Funktion til at tilføje stolper mellem to punkter
 function addPolesBetween(x1, y1, x2, y2) {
@@ -240,3 +243,124 @@ document.getElementById("shedLength").addEventListener("change", (event) => {
 // Initial carport tegning
 drawCarport();
 module.exports = { drawCarport, drawVerticalLines };
+
+
+/*async function generatePDF() {
+    const { jsPDF } = window.jspdf;
+
+    // Create a new jsPDF document
+    const doc = new jsPDF();
+
+    // Retrieve user inputs
+    const width = document.getElementById("carportWidth").value;
+    const length = document.getElementById("carportLength").value;
+    const shedWidth = document.getElementById("shedWidth").value;
+    const shedLength = document.getElementById("shedLength").value;
+    const name = document.getElementById("name").value;
+    const address = document.getElementById("address").value;
+    const zipcode = document.getElementById("zipcode").value;
+    const city = document.getElementById("city").value;
+
+    // Add a title to the PDF
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.text("Carport Bestillingsbekræftelse", 10, 20);
+
+    // Add customer details
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.text(`Navn: ${name}`, 10, 40);
+    doc.text(`Adresse: ${address}`, 10, 50);
+    doc.text(`Postnummer og by: ${zipcode}, ${city}`, 10, 60);
+
+    // Add carport specifications
+    doc.setFont("helvetica", "bold");
+    doc.text("Carport Specifikationer:", 10, 80);
+
+    doc.setFont("helvetica", "normal");
+    doc.text(`Carport Bredde: ${width} cm`, 10, 90);
+    doc.text(`Carport Længde: ${length} cm`, 10, 100);
+    doc.text(`Skur Bredde: ${shedWidth ? shedWidth + " cm" : "Ingen skur"}`, 10, 110);
+    doc.text(`Skur Længde: ${shedLength ? shedLength + " cm" : "Ingen skur"}`, 10, 120);
+
+    // Add footer
+    doc.setFontSize(10);
+    doc.text("Tak for din bestilling!", 10, 140);
+    doc.text("Hvis du har spørgsmål, kontakt os venligst på [indsæt kontaktinfo].", 10, 150);
+
+    // Optional: Add a simple sketch of the carport
+    if (width && length) {
+        doc.setDrawColor(0);
+        doc.rect(10, 170, width / 10, length / 10); // Scale dimensions to fit PDF
+        if (shedWidth && shedLength) {
+            doc.setFillColor(150, 75, 0); // Brown for shed
+            doc.rect(10 + (width - shedWidth) / 10, 170 + (length - shedLength) / 10, shedWidth / 10, shedLength / 10, "F");
+        }
+    }
+
+    // Save or preview the PDF
+    doc.save("Carport_Bekræftelse.pdf");
+}
+
+// Add event listener for a button
+document.getElementById("generatePDF").addEventListener("click", generatePDF);*/
+
+/*function drawCarport() {
+    svgElement.innerHTML = ""; // Clear the previous drawing
+
+    // Retrieve carport dimensions
+    const dimensions = getCarportDimensions();
+    const { carportWidth, carportLength, shedWidth, shedLength } = dimensions;
+
+    const scaleFactor = 0.5;
+    const xStart = 50;
+    const yStart = 50;
+
+    drawGrid(); // Draw background grid
+
+    // Draw carport
+    drawRectangle(xStart, yStart, carportWidth, carportLength, "none", "black", 2);
+    addMeasurementLine(xStart, yStart, xStart + carportWidth, yStart, `${carportWidth} cm`);
+    addMeasurementLine(xStart, yStart, xStart, yStart + carportLength, `${carportLength} cm`);
+
+    drawVerticalLines(xStart, yStart, carportLength, carportWidth, scaleFactor);
+
+    // Draw shed only if dimensions are provided
+    if (!isNaN(shedWidth) && !isNaN(shedLength)) {
+        const shedX = xStart + carportWidth - shedWidth; // Adjust starting position for shed
+        const shedY = yStart + carportLength - shedLength;
+
+        drawRectangle(shedX, shedY, shedWidth, shedLength, "none", "black", 2);
+
+        // Measurement lines for the shed
+        addMeasurementLine(shedX, shedY, shedX + shedWidth, shedY, `${shedWidth} cm`);
+        addMeasurementLine(shedX, shedY, shedX, shedY + shedLength, `${shedLength} cm`);
+
+        // Add poles for shed
+        addShedPoles(shedX, shedY, shedWidth, shedLength);
+    }
+}*/
+
+/*function startDrag(event) {
+    if (event.target.tagName === "rect" && event.target.getAttribute("fill") === "brown") {
+        selectedElement = event.target;
+        const rect = selectedElement.getBoundingClientRect();
+        offset = {
+            x: event.clientX - rect.x,
+            y: event.clientY - rect.y,
+        };
+    }
+}
+
+function drag(event) {
+    if (selectedElement) {
+        const x = event.clientX - offset.x;
+        const y = event.clientY - offset.y;
+        selectedElement.setAttribute("x", Math.round(x / 20) * 20); // Snap to grid
+        selectedElement.setAttribute("y", Math.round(y / 20) * 20); // Snap to grid
+    }
+}
+
+function endDrag() {
+    selectedElement = null;
+}*/
